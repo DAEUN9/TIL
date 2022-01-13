@@ -37,21 +37,28 @@
 
 
 
-### 원격 저장소 commits
+### 로컬 저장소 commits (git)
 
-`git init` : 저장소 생성(초기화)
+- `git init` : 저장소 생성(초기화)
 
-working directory -> staging area : `git add`
+- working directory -> staging area : `git add`
 
-staging area -> commits : `git commit`
+- staging area -> commits : `git commit`
 
-> 커밋창 닫는 법
+  
 
-- ESC -> : (세미콜론) 입력 -> wq 입력 후 엔터
+  커밋창 닫는 법
 
-`git commit -m '메시지'`: 메시지 추가
+  - `ESC` ->  `shift + ;` -> `wq` 
+
+    
 
 
+- `git commit -m '메시지'`: 메시지 추가
+
+
+
+### 원격 저장소 commits (github)
 
 1. 원격 저장소 정보등록(url)
    - `git remote add origin 깃허브주소`
