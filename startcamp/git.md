@@ -48,3 +48,4 @@ staging area -> commits : `git commit`
 `윈도우 + shift + s` : 캡처
 
 `윈도우 + v` : 클립보드 이전 목록
+
