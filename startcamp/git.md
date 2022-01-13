@@ -27,14 +27,6 @@
 
 
 
-`git init` : 저장소 생성(초기화)
-
-working directory -> staging area : `git add`
-
-staging area -> commits : `git commit`
-
-
-
 ### Git 상태
 
 - `untracked`(빨간색) : staging area에 올라가기 전. 처음으로 관리되는 대상
@@ -45,7 +37,32 @@ staging area -> commits : `git commit`
 
 
 
+### 원격 저장소 commits
+
+`git init` : 저장소 생성(초기화)
+
+working directory -> staging area : `git add`
+
+staging area -> commits : `git commit`
+
+> 커밋창 닫는 법
+
+- ESC -> : (세미콜론) 입력 -> wq 입력 후 엔터
+
+`git commit -m '메시지'`: 메시지 추가
+
+
+
+1. 원격 저장소 정보등록(url)
+   - `git remote add origin 깃허브주소`
+2. 올리기
+   - `git push`
+
+
+
 `윈도우 + shift + s` : 캡처
 
 `윈도우 + v` : 클립보드 이전 목록
+
+`git remote remove origin` : origin 삭제
 
