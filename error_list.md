@@ -40,6 +40,30 @@
 
 - 인덱스 범위를 초과하여 접근
 
+`SyntaxError: non-default argument follows default argument`
+
+- 기본인자를 위치인자보다 먼저 위치한 경우
+
+`SyntaxError: positional argument follows keyword argument`
+
+- 키워드인자를 위치인자보다 먼저 위치한 경우
+
+`SyntaxError: expression cannot contain assignment, perhaps you meant "=="?`
+
+- 식별자를 숫자로만 이루었을 때
+
+`TypeError: 'str' object is not callable`
+
+- 내장함수를 변수로 바꿔서 지정하고 내장함수를 사용하려 했을때
+
+`RecursionError: maximum recursion depth exceeded while calling a Python object`
+
+- 1000이상의 재귀 깊이 호출
+
+`NameError: name 'c' is not defined`
+
+- 함수내의 지역변수 c를 접근하려고 함
+
 
 
 
