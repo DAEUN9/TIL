@@ -1,4 +1,4 @@
-# 데이터 & 제어문
+# 제어문1
 
 #### 1. 세로로 출력하기
 
@@ -39,94 +39,126 @@ print(total)
 
 -----
 
-#### 1. Python 예약어(식별자)
+# 제어문2
+
+#### 1. Mutable & Immutable
+
+주어진 컨테이너들을 각각 변경 가능한 것과 변경 불가능한 것으로 분류
 
 ```
-['False', 'None', 'True', 'and', 'as', 'assert', 'async', 'await', 'break', 'class', 'continue', 'def', 'del', 'elif', 'else', 'except', 'finally', 'for', 'from', 'global', 'if', 'import', 'in', 'is', 'lambda', 'nonlocal', 'not', 'or', 'pass', 'raise', 'return', 'try', 'while', 'with', 'yield']
+mutable: List, Set, Dictionary
+immutable: String, Tuple, Range
 ```
 
+#### 2. 홀수만 담기
 
-
-#### 2. 실수 비교
-
-실수표현에서 오차가 발생하여 연산 또는 비교가 되지 않을 때가 있다.
-
-두 실수 값을 올바르게 비교하기 위한 코드
+range와 slicing을 활용하여 1~50 홀수로만 이루어진 리스트 만들기
 
 ```python
-num = 0.1 * 3
-num2 = 0.3
-
-print(abs(num-num2)<=1e-10)
+l = []
+for i in range(1,51,2):
+    l.append(i)
+print(l)
 ```
 
-
-
-#### 3. 이스케이프 시퀀스
-
-(1) 줄 바꿈, (2) 탭, (3) 백슬래시
-
-```
-(1) 줄 바꿈: \n
-(2) 탭: \t
-(3) 백슬래시: \\
-```
-
-
-
-#### 4. String Interpolation
-
-'안녕, 철수야'를 string interpolation으로 출력
+#### 3. Dictionary 만들기
 
 ```python
-name = '철수'
-print(f"'안녕, {name}야!'")
+class_mate={'강보경':26, '고광':27, '김다은':24,
+ '김성령':26, '박찬석':28,}
+print(class_mate.items())
 ```
 
-
-
-#### 5. 형 변환
-
-오류가 발생하는 코드
-
-```python
-int('3.5') # float처럼 생긴 문자열을 int로 바로 못바꿈
-```
-
-
-
-#### 6. 네모 출력
-
-n*m 직사각형 *로 출력, 반복문 사용 금지
+#### 4. 반복문으로 네모 출력
 
 ```python
 n = 5
 m = 9
 
-line = '*'*n
-print(f'{line}\n'*m)
+for i in range(m):
+    for j in range(n):
+        print('*',end='')
+    print('')
 ```
 
-
-
-#### 7. 이스케이프 시퀀스 응용
-
-print()함수 한번만 사용하여 다음 문장 출력
-
-"파일은 c:\Windows\User\내문서\Python에 저장이 되었습니다."
-
-나는 생각했다. 'cd를 써서 git bash로 들어가 봐야지.'
+#### 5. 조건 표현식
 
 ```python
-print('\"파일은 c:\\Windows\\Users\\내문서\\Python에 저장이 되었습니다.\" 나는 생각했다.'+"'cd를 써서 git bash로 들어가 봐야지.\'")
+temp = 36.5
+print('입실 불가') if temp >= 37.5 else print('입실 가능')
 ```
 
-
-
-#### 8. 근의 공식
+#### 6. 평균 구하기
 
 ```python
-root1=((-1)*b+(b**2-4*a*c)**(1/2))/(2*a)
-root2=((-1)*b-(b**2-4*a*c)**(1/2))/(2*a)
+scores = [80, 89, 99, 83]
+sum = 0
+count = 0
+for i in scores:
+    sum += i
+    count += 1
+print(sum/count)
+```
+
+---
+
+# 제어문3
+
+#### 1. 간단한 N의 약수 (SWEA #1933)
+
+n의 약수 오름차순으로 출력
+
+```python
+N = int(input())
+for i in range(1,N+1):
+    if N%i==0:
+        if N==i:
+            print(i,end='')
+        else:          
+            print(i,end=' ')
+    else:
+        continue
+```
+
+#### 2. 중간값 찾기 (SWEA #2063 변형)
+
+전체의 중앙에 위치하는 수치 출력
+
+```python
+numbers = [
+           85,72,38,80,69,65,68,96,22,49,67,
+           51,61,63,87,66,24,80,83,71,60,64,
+           52,90,60,49,31,23,99,94,11,25,24
+         ]
+j = 0
+numbers = sorted(numbers)
+print(numbers)
+for i in numbers:
+    j += 1
+
+if j%2==0:
+    print((numbers[j/2]+numbers[j/2-1])/2)
+
+else:
+    print(numbers[j//2])
+```
+
+#### 3. 계단 만들기
+
+높이가 number인 내려가는 계단 출력
+
+```python
+number = int(input())
+
+for i in range(1, number+1):
+    for j in range(1, number+1):
+        if i == j:
+            for k in range(1, i+1):
+                if k == i:
+                    print(k,end='')
+                    break
+                else:
+                    print(k,end=' ')
+    print('')
 ```
 

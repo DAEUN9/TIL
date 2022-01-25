@@ -64,7 +64,71 @@
 
 - 함수내의 지역변수 c를 접근하려고 함
 
+`SyntaxError: EOL while scanning string literal`
 
+- 따옴표 오류
 
+`SyntaxError: unexpected EOF while parsing`
 
+- 괄호 닫기 오류
+
+`ZeroDivisionError: division by zero`
+
+- 0으로 나눔
+
+`NameError: name 'abc' is not defined`
+
+- 정의되지 않은 변수 abc 호출
+
+`TypeError: unsupported operand type(s) for +: 'int' and 'str'`
+
+- int형과 str형 더하려고 함
+
+`TypeError: type str doesn't define __round__ method`
+
+- 문자열에 round함수를 사용
+
+`TypeError: sample() missing 1 required positional argument: 'k'`
+
+- 함수 호출 과정에서 필수 매개변수가 누락
+
+`TypeError: choice() takes 2 positional arguments but 3 were given`
+
+- 매개변수가 초과해서 들어옴
+
+`ValueError: invalid literal for int() with base 10: '3.5'`
+
+- 자료형은 올바르나 값이 적절하지 않음
+
+`ValueError: 3 is not in list`
+
+- 존재하지 않는 value를 조회
+
+`IndexError: list index out of range`
+
+- 존재하지 않는 index로 조회
+
+`KeyError: 'queen'`
+
+- 존재하지 않는 키로 접근
+
+`ModuleNotFoundError: No module named 'reque'`
+
+- 존재하지 않는 모듈을 import
+
+`ImportError: cannot import name 'sampl' from 'random' (C:\Users\DANI\AppData\Local\Programs\Python\Python39\lib\random.py)`
+
+- 모듈은 존재하나 존재하지 않는 클래스/함수를 가져오는 경우
+
+`KeyboardInterrupt: `
+
+- 사용자가 임으로 실행 중단
+
+`IndentationError: expected an indented block`
+
+- 들여쓰기를 안 한 경우
+
+`IndentationError: unexpected indent`
+
+- 들여쓰기를 아무데나 한 경우
 
