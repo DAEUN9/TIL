@@ -132,3 +132,18 @@
 
 - 들여쓰기를 아무데나 한 경우
 
+`TypeError: test() missing 1 required positional argument: 'self'`
+
+- self가 있는 메서드를 빈 것으로 호출
+
+`AttributeError: type object 'Person' has no attribute 'docstring'`
+
+- 잘못된 속성(데이터)를 호출
+
+`AttributeError: 'Person' object has no attribute '__age'`
+
+- private member 속성을 외부 호출하려고 함
+
+`TypeError: 'str' object is not callable`
+
+- 변수이름과 메서드이름을 똑같이 사용함
