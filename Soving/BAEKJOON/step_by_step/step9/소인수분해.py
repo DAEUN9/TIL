@@ -8,4 +8,5 @@ while N > 1 :
         a = 2
     else:
         a += 1
-print(insu)
+for ins in insu:
+    print(ins)
