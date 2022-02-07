@@ -1,3 +1,5 @@
+# 음계
+
 li = list(map(int, input().split()))
 
 a = li[0]

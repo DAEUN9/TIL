@@ -1,3 +1,5 @@
+# 검증수
+
 li = list(map(int, input().split()))
 total = 0
 for l in li:
