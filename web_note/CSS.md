@@ -375,3 +375,109 @@ text-align: center;
 
 **position으로 위치의 기준을 변경**
 
+
+
+
+
+## Float
+
+- 박스를 왼쪽 혹은 오른쪽으로 이동시켜 텍스트를 포함 인라인 요소들이 주변을 wrapping
+- 요소가 Normal flow를 벗어나도록 함
+- float 속성
+  - `none`: 기본값
+  - `left`: 요소를 왼쪽으로 띄움
+  - `right`: 요소를 오른쪽으로 띄움
+
+### Clearing Float
+
+> Float은 Normal Flow에서 벗어나 부동상태
+>
+> 따라서, 이후 요소에 대하여 Float 속성이 적용되지 않도록 부모 요소에 Clearing 필수적
+
+- `::after`: 선택한 요소의 맨 마지막 자식으로 가상 요소를 하나 생성
+
+  - 보통 content 속성과 짝지어, 요소에 장식용 콘텐츠를 추가할 때 사용
+
+  ```CSS
+  .clearfix::after {
+      content: "";
+      display: block;
+      clear: both;
+  }
+  ```
+
+  
+
+  
+
+## Flexbox
+
+### CSS Flexible Box Layout
+
+- 행과 열 형태로 아이템들을 배치하는 1차원 레이아웃 모델
+- 축
+  - `main axis` (메인 축)
+  - `cross axis` (교차 축)
+- 구성 요소
+  - `Flex Container` (부모 요소)
+    - flex item들이 놓여있는 영역
+    - display 속성을 `flex` 혹은 `inline-flex` 로 지정
+  - `Flex Item` (자식 요소)
+    - 컨테이너에 속해 있는 컨텐츠(박스)
+
+- `flex-direction`: 아이템을 배치할 때 주축방향 설정
+
+### Flex 속성
+
+- 배치 설정
+
+  - `flex-direction`
+
+    - row, row-reverse, column, column-reverse
+
+  - `flex-wrap`: 컨테이너 영역을 벗어나지 않도록 함
+
+    - wrap: 넘치면 그 다음 줄로 배치
+    - nowrap (기본 값): 한 줄에 배치
+
+  - `flex-direction` 과 `flex-wrap` 의 shothand
+
+    ex) `flex-flow: row nowrap;`
+
+- 공간 나누기
+
+  - `justify-content` (main axis)
+
+  ![CSS Flex | 넥스트이노베이션 공식 블로그](https://blog.nextinnovation.kr/assets/flex_css/flex-justify-content.jpg)
+
+  - `align-content` (cross axis) : 줄바뀜이 되면 확인이 어려움
+
+    ![CSS Flex(Flexible Box) 완벽 가이드 | HEROPY](https://heropy.blog/images/screenshot/css-flexible-box/flex-align-content.jpg)
+
+    - space-evenly : 전체 영역에서 아이템 간 간격을 균일하게 분배
+
+- 정렬
+
+  - `align-items` (모든 아이템을 cross axis 기준으로)
+
+    ![Flex - Front Study](https://hangem-study.readthedocs.io/en/latest/img/css_flex_alignitems01.png)
+
+  - `align-self` (개별 아이템)
+
+  ![CSS Flex(Flexible Box) 완벽 가이드 | HEROPY](https://heropy.blog/images/screenshot/css-flexible-box/flex-align-self.jpg)
+
+  ​		- 컨테이너에 적용하는 것이 아니라 개별 아이템에 적용
+
+- 기타 속성
+
+  - `flex-grow` : 남은 영역을 아이템에 분배
+  - `order` : 배치 순서
+
+  ```html
+  <div class="flex_item grow-1 order-3">1</div>
+  <div class="flex_item grow-1">2</div>
+  <div class="flex_item order-1">3</div>
+  <div class="flex_item order-2">4</div>
+  ```
+
+  
