@@ -1,3 +1,5 @@
+# 버블소트
+
 N = int(input())
 li = []
 for n in range(N):
@@ -10,3 +12,4 @@ for i in range(N-1):
             li[j], li[j+1] = li[j+1], li[j]
 for l in li:
     print(l)
+
