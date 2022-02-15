@@ -1,10 +1,12 @@
-N = int(input())
-# N/3개 구역으로 나누어진 N*N 정사각형 패턴
-# 구역 하나는 (N/3)*(N/3) 정사각형
-# 중간구역은 공백으로 비워져있음
-# 재귀적인 패턴 연속
+def star(x):
+    if x == 1:
+        return ['*']
+    x = x // 3
+    a = star(x)
+    topbottom = [i * 3 for i in a]
+    middle = [i + ' ' * x + i for i in a]
+    return topbottom + middle + topbottom
 
-
-# 중앙에 빈구역을 어떻게 만들지?
-# 어떻게 재귀함수로 구현하지?
-#
+n = int(input())
+mystar = '\n'.join(star(n))
+print(mystar)
