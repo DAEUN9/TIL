@@ -7,3 +7,4 @@ PI = math.pi
 
 tan = math.atan2(2, 2)*(180 / PI)
 print(tan)
+math.a
