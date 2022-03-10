@@ -264,6 +264,8 @@ save없이 바로 저장됨
 
   - 조회 시 검색 조건 지정
 
+  - 부등호 중 등호만 사용가능(`<`, `>` 사용불가)
+
     ex) `Article.objects.filter(pk__gt=2)`
 
 - QuerySet API
