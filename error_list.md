@@ -1,5 +1,7 @@
 # error_list
 
+
+
 `TypeError: cannot unpack non-iterable int object`
 
  - 두 개의 변수에 하나의 값을 할당
