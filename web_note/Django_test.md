@@ -288,8 +288,277 @@ DB 안나옴
 ### Templat inheritance
 
 - extends : `{% extends ''%}`
+
   - 반드시 템플릿 최상단 작성
   - 자식이 부모 템플릿 확장(상속)
+
 - block : `{% block content %} {% endblock %}`
+
   - 자식 템플릿이 채울 수 있는 공간
-    
+
+- **템플릿 추가 경로 설정**❗
+
+  ![image-20220320072946414](Django_test.assets/image-20220320072946414.png)
+
+- include: `{% include %}`
+  - 템플릿 내에 다른 템플릿 포함
+  - 복잡할 때 잘라서 가져옴(네비게이션 바, 카드 등 활용)
+
+
+
+### Django 설계 철학
+
+- 표현과 로직을 분리
+- 중복을 배제
+
+
+
+### Form
+
+- 웹에서 사용자 정보를 입력하는 여러 방식 제공, 할당된 데이터 서버로 전송
+- **핵심속성**❗
+  - `action` : 입력 데이터가 전송될 URL 지정
+  - `method` : 입력 데이터 전달 방식 지정
+
+
+
+### input
+
+- 핵심속성
+  - name
+  - 주요 용도는 GET/POST 방식으로 서버에 전달하는 파라미터로 매핑
+    - name=key, value=value
+  - GET 방식에서는 URL에서 `?key=value&key=value` 형식으로 데이터 전달
+
+
+
+### request method - GET
+
+- 정보를 조회하는 데 사용
+- 데이터를 가져올 때만 사용해야 함
+
+
+
+### Variable Routing
+
+- url 주소를 변수로 사용
+- 변수 값에 따라 하나의 path()에 여러 페이지 연결 가능
+
+![image-20220320074119667](Django_test.assets/image-20220320074119667.png)
+
+- converters
+  - str: `/`를 제외 모든 문자열과 매치, 작성하지 않으면 기본값 `<name>`
+  - int
+  - slug: ASCII문자 또는 숫자, 하이픈 및 밑줄 문자
+
+
+
+### URL
+
+- URL mapping
+
+  - urlpattern은 다른 모듈 포함 가능
+
+    ![image-20220320074659635](Django_test.assets/image-20220320074659635.png)
+
+  - 각각 앱 안에 urls.py을 생성하고 프로젝트 urls.py에서 각 앱의 urls.py 파일로 매핑 위탁
+
+    ![image-20220320074452628](Django_test.assets/image-20220320074452628.png)
+
+- Naming URL patterns
+
+  - `name` value는 `{% url %}`로 불려짐
+  - 일치하는 절대 경로 주소 반환
+
+![image-20220320074807894](Django_test.assets/image-20220320074807894.png)
+
+
+
+# Django Model
+
+
+
+### Model
+
+- 단일한 데이터에 대한 정보 가짐
+- 저장된 데이터베이스의 구조(layout)
+- 각각의 model은 하나의 DB 테이블에 매핑 됨
+- **웹 애플리케이션 데이터를 구조화하고 조작하기 위한 도구**
+
+
+
+#### PK
+
+> 각 행(레코드)의 고유값
+
+
+
+### ORM
+
+> Object-Relational-Mapping
+
+- OOP를 사용하여 호환되지 않는 유형의 시스템간 데이터를 변환
+
+- 장점: SQL 몰라도 됨, 객제 지향적 접근으로 높은 **생산성**
+- 단점: ORM 만으로 완전한 서비스 구현 어려움
+
+- **DB를 객체로 조작하기 위해 사용**
+
+
+
+### 사용 모델 필드
+
+- `CharField`(max_length=None, *options) : max_length 필수
+
+- `TextField`(*options) : 글자수 많을 때
+- `DateTimeField`(auto_now=False, auto_now_add=False, *options)
+
+- `FloatField`(*options)
+- `IntegerField`(*options)
+
+
+
+### Migration
+
+> Django가 model에 생긴 변화 반영
+
+- `makemigrations`
+  - 새로운 마이그레이션(설계도) 생성
+  - `python manage.py makemigrations`
+- `migrate`
+  - 마이그레이션 DB 반영
+  - 변경 사항들과 DB의 스키마가 동기화 이룸
+  - `python manage.py migrate`
+- `sqlmigrate`
+  - 마이그레이션에 대한 SQL 구문 보기
+  - `python manage.py sqlmigrate app_name 0001`
+- `showmigrations`
+  - 프로젝트 전체의 마이그레이션 상태 확인
+  - `python manage.py showmigrations`
+
+
+
+### DateField❗❗
+
+![image-20220320080948201](Django_test.assets/image-20220320080948201.png)
+
+- `auto_now_add` : 생성일
+  - 디폴트 값 설정 -> 1
+- `auto_now` : 업데이트일
+
+- `DateTimeField`는 `DateField`의 서브 클래스
+
+
+
+### CRUD ❗❗
+
+- CREATE
+
+  - 인스턴스 생성 후 인스턴스 변수 설정
+
+    ```django
+    article = Article()
+    article.title = 'first'
+    article.save()
+    ```
+
+  - 초기 값과 함께 인스턴스 생성
+
+    ```django
+    article = Article(title='second')
+    article.save()
+    ```
+
+  - QuerySet API - create() 사용
+
+    ```django
+    Article.objects.create(title='third')
+    ```
+
+  - str() 정의하여 문자열 반환하도록 할 수 있음
+
+- READ
+
+  - `Article.objects.all()` : 전체 article 객체 조회, 현재 QuerySet의 복사본 반환
+  - `Article.objects.get(key=value)` : 주어진 lookup 매개변수와 일치하는 객체 반환
+    - 찾을 수 없거나 두개 이상이면 예외 발생
+  - `Article.objects.filter(key=value)` : 주어진 lookup 매개변수와 일치하는 객체를 포함하는 새 QuerySet 반환
+
+- UPDATE
+
+  - 값을 불러서 변경하고 저장
+
+- DELETE
+
+  - 값을 READ로 불러서 삭제, 반환
+  - `article.delete()`
+
+- [Field lookups](https://docs.djangoproject.com/ko/3.2/ref/models/querysets/#field-lookups) -> 가볍게보기
+  - 조회 시 특정 검색 조건을 지정
+
+
+
+### Admin Site
+
+- admin 생성
+
+  - `python manage.py createsuperuser`
+  - 주의) 기본 테이블이 생성되지 않으면 관리자 계정 생성 불가
+
+- admin 등록
+
+  - `admin.site.register(Article)`
+
+    ![image-20220320084340773](Django_test.assets/image-20220320084340773.png)
+
+
+
+### HTTP method
+
+- GET
+  - 특정 리소스를 가져오도록 요청
+  - 반드시 데이터를 가져올 때만 사용
+  - DB에 변화 x
+  - CRUD에서 R 역할
+
+- POST
+  - 서버로 데이터 전송(HTTP에 담아서)
+  - 서버에 변경사항을 만듦
+  - CRUD C/U/D 역할 담당
+
+
+
+### 사이트 간 요청 위조
+
+> Cross-site request forgery
+
+- 공격 방어
+  - **Security Token(CSRF Token)**❗
+    - 데이터에 임의의 난수 값을 부여, 매 요청마다 난수 값을 포함시켜 전송
+    - 이후 서버에서 요청을 받을 때마다 전달된 token 값이 유효한지 검증
+    - POST, PATCH, DELETE method 등에 적용(GET 제외)
+  -  `{% csrf_token %}`
+    - input type hidden으로 작성 value는 hash 값
+    - POST 일때 반드시 설정
+    - 해당 태그 없이 요청을 보낸다먼 Django 서버는 403 fibidden 응답
+
+
+
+### redirect()❗❗
+
+- 새 URL로 요청을 다시 보냄
+- 인자에 따라 `HttpResponseRedirect` 반환
+
+- 브라우저는 현재 경로에 따라 전체 URL 자체를 재구성(reconstruct)
+
+- 사용 가능 인자
+  - model
+  - view name
+  - absolute or relative URL
+
+![image-20220320085402105](Django_test.assets/image-20220320085402105.png)
+
+- Variable Routing으로 pk 받아서 활용 가능
+
+  
+
