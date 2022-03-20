@@ -443,7 +443,8 @@ DB 안나옴
 ![image-20220320080948201](Django_test.assets/image-20220320080948201.png)
 
 - `auto_now_add` : 생성일
-  - 디폴트 값 설정 -> 1
+  - 바로 다음줄에 디폴트 값 설정 -> 1
+  - 종료하고 직접 기본값을 코드에서 설정 -> 2
 - `auto_now` : 업데이트일
 
 - `DateTimeField`는 `DateField`의 서브 클래스
