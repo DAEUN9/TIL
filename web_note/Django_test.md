@@ -122,7 +122,7 @@ DB 안나옴
 - `project` : Application의 집합
   - 앱은 여러 프로젝트에 있을 수 있음
 
-- `Application` : 실제 요청을 처리하고 페이지를 부여줌
+- `Application` : 실제 요청을 처리하고 페이지를 보여줌
   - 하나의 역할 및 기능 단위
 
 
