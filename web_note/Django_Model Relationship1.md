@@ -102,8 +102,10 @@
   - `settings.AUTH_USER_MODEL`
     - User 모델에 대한 외래 키 또는 다대다 관계를 정의 할 때 사용
     - models.py에서 User모델을 참조할 때 사용
+    - 리턴 문자열
   - `get_user_model()`
     - models.py 가 아닌 다른 모든 곳에서 유저 모델을 참조할 때 사용
+    - 리턴 오브젝트
 - User와 Article 간 모델 관계 정의 후 migration
   - 1 enter
     - 현재 화면에서 기본 값을 설정하겠다
