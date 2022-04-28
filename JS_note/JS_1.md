@@ -252,3 +252,56 @@ const divid1 = (a,b) => b ? a/b : NaN
 - 대괄호 이용해 생성
 - 배열 길이는 `array.length` 로 접근
 - 0~ 양의 정수 인덱스로 접근 가능
+
+
+
+#### 배열 메서드
+
+> callback 함수를 인자로 받음
+
+- forEach
+  - `array.forEach((element, index, arr) => { })`
+- map
+  - `array.map((element, index, arr) => { })`
+  - return 값으로 새로운 배열 만듦(필수)
+- filter
+  - return 값이 True인 요소들만 모아서 새로운 배열 리턴(필수)
+- reduce
+  - `array.reduce((acc, element, index, array) => { }, initialValue)`
+  - callback 함수의 return 값 acc에 누적
+- find
+  - 참이면 첫번재 값 반환
+  - 찾는 값 없으면 `undefined`
+- some
+  - 하나라도 참이면 참을 반환
+  - 빈 배열은 항상 `거짓` 반환
+- every
+  - 모든 요소가 참이면 참
+  - 빈 배열은 항상 `참`
+
+
+
+### this
+
+- class 내부의 생성자 함수 this는 생성된 객체 가리킴
+- 메서드 this 는 해당 메서드가 소속된 객체 가리킴
+- 나머지는 모두 최상위 객체 (window)
+
+
+
+#### function 키워드와 화살표 함수 차이
+
+- 콜백 함수는 메서드 아님
+  - 객체.메서드명()  호출 불가능(윈도우 가리킴)
+  - `함수객체.bind(this)`
+- 화살표 함수는 ??🙄
+- 이벤트함수에서는 화살표함수 자제
+
+
+
+### lodash
+
+- random
+- range
+- cloneDeep(deepcopy)
+- ....

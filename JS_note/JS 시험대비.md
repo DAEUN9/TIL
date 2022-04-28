@@ -1,0 +1,64 @@
+# JS 시험대비
+
+- 자바스크립트 특징
+  - 동적, 브라우저 유일 조작
+- DOM이란
+- BOM이란
+
+- 최상위 객체 (window)
+- document
+- 식별자 정의와 특징
+- let, const, var 표
+  - 서술형 가능성
+- 각 키워드 어떤 스코프
+- undefined, null(서술형)
+- 자동 형변환
+- 삼항연산자
+- switch case
+- for...in, for...of 차이점
+- rest parameter
+- spread operator✨
+- 선언식 vs 표현식
+- Arrow function 
+  - step
+
+- arrow와 function 표현식 차이점
+  - this
+- 문자열 메서드(훑)
+- 배열 정의
+  - 음수 인덱스 지원 x
+  - 순서 보장
+  - array.length 길이 접근
+- 배열 메서드(훑)
+- helper method✨
+  - return값 하는 일
+- foreach
+  - break, continue 사용 불가능
+- 객체(딕셔너리)
+  - 객체 안에 함수 작성 가능
+  - 메서드 내부 this는 객체 의미
+- 속성명 축약 언제?
+  - key와 할당하는 변수의 이름이 같으면
+- 메서드명 축약
+  - method로 익명함수 정의되어 있을때
+- 구조 분해 할당✨
+- this
+  - 두 경우 말고 윈도우
+- lodash 안나옴
+- 인물
+- 탄생 skip
+- 파편화 표준화 skip
+- 정리 읽기
+- DOM 조작은 선택과 변경
+- querySelector ...
+- 선택 관련 메서드 차이점
+- html... node 차이점
+- append appendchild 차이점
+- innertext innerhtml 차이점
+- remove removechild 차이점
+- setattribut getattribute 차이점
+- addeventlistener
+  - 타입, 리스너(콜백함수)
+- preventDefault()✨
+  - 이벤트 기본동작 중지
+- 
