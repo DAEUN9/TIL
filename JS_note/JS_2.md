@@ -48,3 +48,15 @@
     - 확인 창
 
 - input 태그 기본값은 입력한 값 보이는게 포함
+
+- `event.target`
+  - 이벤트 발생 객체
+  - EventListener의 element
+
+- `event.preventDefault()`
+  - 현재 이벤트의 기본 동작 x
+
+
+
+
+
