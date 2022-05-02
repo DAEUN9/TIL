@@ -55,8 +55,3 @@
 
 - `event.preventDefault()`
   - 현재 이벤트의 기본 동작 x
-
-
-
-
-
