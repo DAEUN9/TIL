@@ -38,7 +38,7 @@ def get_movie_datas():
     for data in total_data:
         movie_id = data['fields']['movie_id']
 
-        credit_request_url = f"https://api.themoviedb.org/3/movie/{movie_id}/credits?api_key={TMDB_API_KEY}"
+        credit_request_url = f"https://api.themoviedb.org/3/movie/{movie_id}/credits?api_key={TMDB_API_KEY}&language=ko-KR"
         credit_info = requests.get(credit_request_url).json()
         # print(credit_request_url)
         # print(credit_info)
