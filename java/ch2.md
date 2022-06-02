@@ -1,0 +1,98 @@
+# Java 기초 1
+
+
+
+### 변수의 타입
+
+- int
+- long
+  - 20억 넘을 때
+- float
+- double
+  - 15자리
+- char
+- String
+
+
+
+### 상수와 리터럴
+
+- 상수는 변수와 달리 저장하면 변경 불가
+- `final int MAX_VALUE = 10;`
+- fianl을 앞에 붙여줌
+- 모두 대문자로 하는게 관례 여러단어면 `_`로 구분
+
+
+
+- 리터럴 : 그 자체로 값(기존 상수의 다른 이름)
+- 리터럴 접미사
+  - 논리형 - 없음
+  - 정수형 - `L`(롱타입)
+    - 중간에 구분자 넣을 수 있음 - `100_000_000_000L`
+  - 실수형 - `f`(생략 불가), `d`(생략 가능) / float, double
+  - 문자형 - 없음
+  - 문자열 - 없음
+
+
+
+
+
+### 문자 리터럴과 문자열 리터럴
+
+- char 타입은 `'` `"` 사용
+  - `'`은 빈문자열 허용 안함
+- String 타입 `"` 사용
+  - 빈 문자열 허용
+- String 두가지 표현
+  - `String name = new String("java");` - String 객체를 생성
+  - `String name = "java";` - 위의 문장을 간단히
+
+
+
+### 문자열 결합
+
+- 문자열 + any type -> 문자열 + 문자열 => 문자열
+- 7 + 7 + "" -> 14 + "" -> "14" + "" => "14"
+
+
+
+### 기본형의 종류와 범위
+
+- 논리형, 문자형, 정수형(int), 실수형(double)
+
+| 종류/크기 | 1byte   | 2byte | 4byte   | 8byte      |
+| --------- | ------- | ----- | ------- | ---------- |
+| 논리형    | boolean |       |         |            |
+| 문자형    |         | char  |         |            |
+| 정수형    | byte    | short | **int** | long       |
+| 실수형    |         |       | float   | **double** |
+
+
+
+### printf를 이용한 출력
+
+- 지시자를 통해 변수의 값을 여러 형식으로 변환하여 출력 가능
+- 지시자의 순서와 개수 일치해야 함
+- 자주 쓰는 지시자
+  - `%d` : 10진 정수 형식
+  - `%x` : 16진 정수 형식
+  - `%f` : 부동 소수점의 형식
+  - `%c` : 문자로 출력
+  - `%s` : 문자열로 출력
+
+
+
+### 화면으로부터 입력받기
+
+```java
+import java.util.Scanner; // Scanner 클래스를 사용하기 위해 추가
+
+Scanner scanner = new Scanner(System.in); // Scanner 클래스의 객체를 생성
+
+String input = scanner.nextLine(); // 입력받은 내용을 input에 저장
+int num = Integer.parseInt(input); // 입력받은 내용을 int타입의 값으로 변환
+
+// 바로 int로 입력받기
+int num = scanner.nextInt(); // 정수를 입력받아서 변수 num에 저장
+```
+
