@@ -132,4 +132,71 @@ int num = scanner.nextInt(); // 정수를 입력받아서 변수 num에 저장
 
 - `(타입)피연산자`
   - int(84.3); -> 84
-- 
+
+
+
+### 자동 형변환
+
+- `float f = 1234;` // float f = (float)1234; 에서 (float)가 생략
+- 사칙연산자
+  - 피연산자 모두 int인 경우, 연산결과도 int타입
+  - 올바른 연산결과를 얻기 위해서는 두 피연산자 중 한 쪽을 실수형으로 형변환
+- 큰 자료형의 값을 작은 자료형의 변수에 저장하려면 명시적으로 형변환 해야함
+
+
+
+### 문자열 비교
+
+- `==` 대신 `equals()` 사용
+  - 대소문자 구분
+
+- `equalsIgnoreCase()`는 대소문자 구분 x
+
+- `boolean result = str.equals("abc");`
+
+
+
+### switch문
+
+- 순서
+  1. 조건식 계산
+  2. 조건식의 결과와 일치하는 case문으로 이동
+  3. 이후의 문장들 수행
+  4. break문이나 switch문의 끝을 만나면 switch문 전체를 빠져나감
+
+```java
+switch (조건식) {
+    case 값1 :
+        // 조건식의 결과가 값1과 같을 경우 수행될 문장들
+        // ...
+        break;
+    case 값2 :
+        //...
+        break;	// switch문을 벗어난다
+    // ...
+    default :
+        // 조건식의 결과와 일치하는 case문이 없을 때 수행될 문장들
+        // ...
+}
+```
+
+- 제약조건
+  1. 조건식 결과는 정수 또는 문자열 이어야 함
+  2. case문의 값은 정수 상수(문자 포함), 문자열만 가능하며, 중복되지 않아야 한다
+
+```java
+public static void main(String[] args) {
+    int num, result;
+    final int ONE = 1;
+    ...
+    switch(result) {
+        case '1':		// OK. 문자 리터럴(정수 49와 동일)
+        case ONE:		// OK. 정수 상수
+        case "YES":		// OK. 문자열 리터럴. JDK 1.7부터 허용
+        case num:		// 에러. 변수는 불가
+        case 1.0:		// 에러. 실수도 불가
+            ...
+    }
+}
+```
+
