@@ -200,3 +200,11 @@ public static void main(String[] args) {
 }
 ```
 
+
+
+
+
+### 임의의 정수만들기
+
+- `Math.random()`
+  - 0.0과 1.0 범위에 속하는 하나의 double값을 반환
