@@ -152,3 +152,60 @@ boolean isInterrupted()	// 쓰레드의 interrupted상태를 반환
 static boolean interrupted()	// 현재 쓰레드의 interrupted상태를 반환 후, false로 변경
 ```
 
+
+
+### suspend(), resume(), stop()
+
+- suspend()는 쓰레드를 멈추게 함
+- resume()을 호출해야 다시 실행대기 상태가 됨
+- stop()은 호출되는 즉시 쓰레드 종료
+
+
+
+### join()과  yield()
+
+- join() : 하던 일을 멈추고 다른 쓰레드의 작업을 기다림
+  - 호출되는 부분을 try-catch로 감싸야 함
+  - static아님
+- yield():  다른 쓰레드에게 양보
+  - 쓰레드 자신에게 주어진 실행시간을 다음 차례의 쓰레드에게 양보
+
+
+
+### 쓰레드의 동기화
+
+- 한 쓰레드가 진행중인 작업을 다른 쓰레드가 간섭하지 못하게 막는 것
+
+
+
+### synchronized를 이용한 동기화
+
+```java
+// 1. 메서드 전체를 임계 영역으로 지정
+public synchronized void calcSum() {
+    // ...
+}
+
+// 2. 특정한 영역을 임계 영역으로 지정
+synchronized(객체의 참조변수) {
+    // ...
+}
+```
+
+
+
+### wait()과 notify()
+
+- 동기화된 임계 영역의 코드를 수행하다가 작업을 진행할 상황이 아니면
+
+- wait()을 호출하여 쓰레드가 락을 반납하고 기다리게 함
+- 다른 쓰레드가 락을 얻어 해당 객체에 대한 작업을 수행할 수 있게 됨
+- 작업 진행할 상황이 되면 notify()를 호출해서, 작업 다시 진행
+- 쓰레드가 깨워지는 것은 notifyAll()이 호출된 객체의 waiting pool에 대기중인 쓰레드만 해당
+- wait(), notify(), notifyAll()
+  - Object에 정의
+  - 동기화 블록내에서만 사용될 수 있음
+  - 보다 효율적인 동기화를 가능하게 함
+
+
+
