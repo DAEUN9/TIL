@@ -40,7 +40,7 @@ public class ApplicationContextBasicFindTest {
     @DisplayName("빈 이름으로 조회X")
     void findBeanByNameX() {
 //        ac.getBean("xxxx", MemberService.class);
-        MemberService xxxx = ac.getBean("xxxx", MemberService.class);
+//        MemberService xxxx = ac.getBean("xxxx", MemberService.class);
         org.junit.jupiter.api.Assertions.assertThrows(NoSuchBeanDefinitionException.class,
                 () -> ac.getBean("xxxx", MemberService.class));
 
