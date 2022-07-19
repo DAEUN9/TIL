@@ -11,7 +11,7 @@ import java.util.List;
 @RequiredArgsConstructor
 public class MemberRepository {
 
-    
+
     private final EntityManager em;
 
 //    public MemberRepository(EntityManager em) {
