@@ -1,0 +1,22 @@
+spring:
+#  datasource:
+#    url: jdbc:h2:mem:test
+#    username: sa
+#    password:
+#    driver-class-name: org.h2.Driver
+#
+#  jpa:
+#    hibernate:
+##      실행시점에 다시생성
+#      ddl-auto: create
+#    properties:
+#      hibernate:
+##        show_sql: true
+#        format_sql: true
+
+# 스프링부트에서 별도 설정없으면 메모리모드(테스트db)로 돌림
+
+logging:
+  level:
+    org.hibernate.SQL: debug
+    org.hibernate.type: trace

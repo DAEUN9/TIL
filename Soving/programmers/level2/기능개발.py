@@ -6,29 +6,29 @@ def solution(progresses, speeds):
     answer = []
     for i in range(len(progresses)):
         dq.append([progresses[i], speeds[i]])
-    visited = [0]*len(dq)
+    visited = [-1]*len(dq)
 
-    flag = True
     curr = 0
-    cnt = 0
-    while flag:
 
+    while sum(visited):
+        cnt = 0
         flag = False
         for d in range(len(dq)):
-            if visited[d]:
+            if visited[d]==0:
                 continue
-            flag = True
             dq[d][0] += dq[d][1]
-            if dq[d][0]>=100:
-                cnt += 1
-                visited[d] = 1
-                if curr == d:
-                    curr += 1
-                    answer.append(cnt)
-                    cnt = 0
+            if d == curr and dq[d][0]>=100:
+                flag = True
+                curr += 1
+        if flag:
+            for q in range(len(dq)):
+                if visited[q] < 0 and dq[q][0]>=100:
+                    cnt += 1
+                    visited[q] = 0
+            answer.append(cnt)
 
     return answer
 
-a = [93, 30, 55]
-b = [1, 30, 5]
+a = [95, 90, 99, 99, 80, 99]
+b = [1, 1, 1, 1, 1, 1]
 print(solution(a, b))
