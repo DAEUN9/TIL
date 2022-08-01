@@ -7,17 +7,17 @@
 
 import heapq
 from collections import deque
-
-# def solution(jobs):
-#     answer = 0
-#     length = len(jobs)
-#     curr = 0
-#     start = 0
-#     while jobs:
-#         heapq.heappop(jobs)
-#         request, time = heapq.heappop(jobs)
-#         if request >= curr:
-#             curr = request+time
+#
+# # def solution(jobs):
+# #     answer = 0
+# #     length = len(jobs)
+# #     curr = 0
+# #     start = 0
+# #     while jobs:
+# #         heapq.heappop(jobs)
+# #         request, time = heapq.heappop(jobs)
+# #         if request >= curr:
+# #             curr = request+time
 #             start = request
 #             answer += time
 #         else:
@@ -30,7 +30,7 @@ from collections import deque
 def solution(jobs):
     # tasks를 작업시간, 요청시간으로 만들어서
     # 요청시간 기준으로 정렬
-    tasks =  deque(sorted([(x[1], x[0]) for x in jobs], key=lambda x: (x[1], x[0])))
+    tasks = deque(sorted([(x[1], x[0]) for x in jobs], key=lambda x: (x[1], x[0])))
     q = []
     # 요청시간이 가장 짧은거 힙에 넣어줌
     heapq.heappush(q, tasks.popleft())
