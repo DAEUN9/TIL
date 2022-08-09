@@ -15,4 +15,3 @@
 - onCreate
 - onStart
 - onStop
-- 
