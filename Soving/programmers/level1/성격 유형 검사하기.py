@@ -10,7 +10,7 @@ def solution(survey, choices):
     for i in range(len(choices)):
         if choices[i]< 4:
             a = d.get(survey[i][0], 0)
-            d[survey[i][0]] = a + choices[i]
+            d[survey[i][0]] = a + 4 - choices[i]
         elif choices[i] > 4:
             a = d.get(survey[i][1], 0)
             d[survey[i][1]] = a + choices[i]-4
@@ -23,7 +23,3 @@ def solution(survey, choices):
         else:
             answer += m[1]
     return answer
-
-
-answer = solution(["TR", "RT", "TR"], [7, 1, 3])
-print(answer)
