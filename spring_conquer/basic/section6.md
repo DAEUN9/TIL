@@ -31,7 +31,41 @@
 
 - **탐색 위치와 기본 스캔 대상**
 
+  - `@ComponentScan`의 `basePackages`를 통해 패키지 범위 설정 가능
+    - 지정 안하면 현재 패키지부터 시작
+
+  - `basePackageClass` : 지정한 클래스의 패키지를 탐색 시작 위로 지정
+
+  - 권장하는 방법
+    - 설정 정보 클래스 위치를 최상단에 두기
+      - 하위는 모두 컴포넌트 스캔의 대상이 됨
+
+    - `@SpringBootApplication`을 루트 패키지에 두는 것이 관례
+      - 안에 `@ComponentScan`이 달려있음
+
+  - 컴포넌트 스캔 기본 대상
+    - `@Component`
+    - `@Controller`
+    - `@Service`
+    - `@Repositorty`
+      - DB에 접근하는 예외를 스프링 예외로 변환해줌
+
+    - `@Configuration`
+
 - **필터**
 
+  - `includeFilter` : `ComponentScan` 대상 추가 지정
+
+  - `excludeFilter` : 제외 대상 지정
+
 - **중복 등록과 충돌**
+
+  - 자동 빈 등록 vs 자동 빈 등록
+    - 이름을 일부러 지정해주지 않으면 일어날 일 없음
+
+  - 수동 빈 등록 vs 자동 빈 등록
+    - 수동 등록 빈이 우선권을 가짐
+    - 수동 빈이 자동 빈을 오버라이딩 해줌
+    - 최근 스프링부트에서는 충돌이 나서 오류가 나도록 함
+
 
