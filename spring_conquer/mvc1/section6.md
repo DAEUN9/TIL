@@ -70,11 +70,15 @@
   - `@PathVariable`
     - 식별자를 매칭하여 편리하게 조회 가능
     - 이름과 파라미터 이름이 같으면 생략 가능
+  - 파라미터 조건 추가 매핑 가능
+    - `params = "mode=debug"`
   - 특정 헤더 조건 매핑 가능
     - `@GetMapping(value = "/mapping-header", headers = "mode=debug")`
   - 미디어 타입 조건 매핑
     - `@PostMapping(value = "/mapping-consume", consumes = "application/json")`
+      - `contents` 타입
     - `@PostMapping(value = "/mapping-produce", produces = "text/html")`
+      - `Accpet` 헤더 기반
 
 
 
@@ -97,7 +101,7 @@
       public String headers(HttpServletRequest request,
                             HttpServletResponse response,
                             HttpMethod httpMethod,	// HTTP 메서드 조회
-                            Locale locale,	// 
+                            Locale locale,	// 언어 정보
                             @RequestHeader MultiValueMap<String, String> headerMap,
                             // 모든 HTTP 헤더를 MultiValueMap 형식으로 조회
                             @RequestHeader("host") String host,
@@ -169,9 +173,11 @@
   ```
 
   - String , int , Integer 등의 단순 타입이면 `@RequestParam` 도 생략 가능
+    - 요청 파라미터 이름과 변수 이름 같아야 함
+  
   - `@RequestParam` 애노테이션을 생략하면 스프링 MVC는 내부에서 `required=false` 를 적용
   - 명시적으로 사용하고 생략하지 말자
-
+  
   ```java
   // 파라미터 필수 여부 - requestParamRequired
   
@@ -196,7 +202,7 @@
       return "ok";
   }
   ```
-
+  
   - 파라미터를 Map으로 조회하기
     - `@RequestParam Map `
       - `Map(key=value)`
@@ -290,8 +296,10 @@
   - 스프링에서 응답 데이터를 만드는 주요 방법 3가지
     - 정적 리소스
       - 파일 변경 없이 그대로 서비스
+      - `/static/...`
     - 뷰 템플릿 사용
       - HTML이 생성되고 뷰가 응답을 만들어서 전달
+      - `/templates/...`
     - HTTP 메시지 사용
   - 컨트롤러에서 void를 반환하는 경우
     - 요청 URL을 참고해서 논리 뷰 이름으로 사용
@@ -388,21 +396,26 @@
 
   - 스프링 부트 기본 메시지 컨버터
 
+    - 대상 클래스 타입과 미디어 타입을 둘 다 체크
+  
+  
     ```
     0 = ByteArrayHttpMessageConverter
     1 = StringHttpMessageConverter 
     2 = MappingJackson2HttpMessageConverter
     ```
-
+  
     - `ByteArrayHttpMessageConverter`
       - 클래스 타입: `byte[]`, 미디어 타입: `*/*`
+      - 쓰기 미디어 타입 : `application/octet-stream`
     - `StringHttpMessageConverter`
       - 클래스 타입: `String`, 미디어 타입: `*/*`
+      - 쓰기 미디어 타입: `text/plain`
     - `MappingJackson2HttpMessageConverter`
       - 클래스 타입: 객체 또는 `HashMap`, 미디어 타입: `application/json` 관련
-
+  
   - HTTP 요청 데이터 읽기
-
+  
     - HTTP 요청이 오고, 컨트롤러에서 `@RequestBody` , `HttpEntity` 파라미터를 사용한다.
     - 메시지 컨버터가 메시지를 읽을 수 있는지 확인하기 위해 `canRead()` 를 호출한다.
       - 대상 클래스 타입을 지원하는가.
@@ -410,9 +423,9 @@
       - HTTP 요청의 Content-Type 미디어 타입을 지원하는가.
         - 예) `text/plain` , `application/json` , `*/*` 
     - `canRead()` 조건을 만족하면 read() 를 호출해서 객체 생성하고, 반환한다. 
-
   
-
+  
+  
   - HTTP 응답 데이터 생성
     - 컨트롤러에서 `@ResponseBody` , `HttpEntity` 로 값이 반환된다. 
     - 메시지 컨버터가 메시지를 쓸 수 있는지 확인하기 위해 `canWrite()` 를 호출한다.
@@ -432,5 +445,42 @@
 
   - ArgumentResolver
     - 파라미터를 유연하게 처리
+    
     - 다양한 파라미터의 값 생성
+    
     - 파라미터의 값이 모두 준비되면 컨트롤러를 호출하면서 값을 넘겨줌
+    
+    - 정확히는 `HandlerMethodArgumentResolver`인데 줄여서 `ArgumentResolver`
+    
+      ```java
+      public interface HandlerMethodArgumentResolver {
+          boolean supportsParameter(MethodParameter parameter);
+          @Nullable
+          Object resolveArgument(MethodParameter parameter, @Nullable
+                                 ModelAndViewContainer mavContainer,
+                                 NativeWebRequest webRequest, @Nullable WebDataBinderFactory 
+                                 binderFactory) throws Exception;
+      }
+      ```
+
+  - 동작 방식
+    - `ArgmentResolver`의 `supportsParameter()` 로 해당 파라미터를 지원하는지 체크
+    - 지원하면 `resolverArgument()`로 실제 객체 생성
+    - 생성된 객체가 컨트롤러 호출시 넘어감
+  - `ReturnValueHandler`
+    - `HandlerMethodReturnValueHandler`를 줄여서 `ReturnValueHandler`라고 부름
+    - `ArgumentResolver`와 비슷한데, 응답 값을 변환하고 처리
+    - 컨트롤러에서 String으로 뷰 이름을 반환해도 동작하는 이유
+
+  ![image-20230204084803329](section6.assets/image-20230204084803329.png)
+
+  - `ArgumentResolver`는 객체를 호출하고 `@RequestBody`, `HttpEntity`같은 특정 형식은
+    - HTTP 메시지 컨버터를 통해 객체를 생성해서 넘겨줌
+    - `ArgumentResolver` -> `HTTP 메시지 컨버터` -> `ArgumentResolver` -> `핸들러(컨트롤러)`
+  - 확장
+    - 스프링은 다음을 모두 인터페이스로 제공 -> 언제든지 기능 확장
+      - `HandlerMethodArgumentResolver`
+      - `HandlerMethodReturnValueHandler`
+      - `HttpMessageConverter`
+    - 기능 확장은 `WebMvcConfigurer`를 상속 받아서 스프링 빈으로 등록
+      - 자주 사용하지는 않음
