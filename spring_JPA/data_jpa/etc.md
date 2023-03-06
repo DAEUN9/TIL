@@ -191,3 +191,159 @@
     ```
 
     - username만 조회됨
+
+  - 인터페이스 기반 Closed Projections
+
+    - 프로퍼티 형식의 인터페이스를 제공하면, 구현체는 스프링 데이터 JPA가 제공
+
+    ```java
+    public interface UsernameOnly {
+        String getUsername();
+    }
+    ```
+
+  - 인터페이스 기반 Open Projections
+
+    - 스프링의 SpEL 문법도 지원
+
+    ```java
+    public interface UsernameOnly {
+        @Value("#{target.username + ' ' + target.age + ' ' + target.team.name}")
+        String getUsername();
+    }
+    ```
+
+    - 단! 이렇게 SpEL문법을 사용하면, DB에서 엔티티 필드를 다 조회해온 다음에 계산한다
+    - SPQL SELECT절 최적화가 안된다
+
+  - 클래스 기반 Projections
+
+    - 인터페이스가 아닌 구체적인 DTO 형식도 가능
+    - 생성자의 파라미터 이름으로 매칭
+
+    ```java
+    public class UsernameOnlyDto {
+        
+        private final String username;
+        
+        public UsernameOnlyDto(String username) {
+            this.username = username;
+        }
+        
+        public String getUsername() {
+            return username;
+        }
+    }
+    ```
+
+  - 동적 Projections
+
+    - Generic Type을 주면, 동적으로 프로젝션 데이터 변경 가능
+
+    ```java
+    <T> List<T> findProjectionsByUsername(String username, Class<T> type);
+    ```
+
+    - 사용 코드
+
+      ```java
+      List<UsernameOnly> result =
+          memberRepository.findProjectionsByUsername("m1", UsernameOnly.class);
+      ```
+
+  - 중첩 구조 처리
+
+    ```java
+    public interface NestedClosedProjection {
+        
+        String getUsername();
+        TeamInfo getTeam();
+        
+        interface TeamInfo {
+            String getName();
+        }
+    }
+    ```
+
+    - 실행 쿼리
+
+      ```sql
+      select
+       m.username as col_0_0_,
+       t.teamid as col_1_0_,
+       t.teamid as teamid1_2_,
+       t.name as name2_2_ 
+      from
+       member m 
+      left outer join
+       team t 
+       on m.teamid=t.teamid 
+      where
+       m.username=?
+      ```
+
+    - 주의
+      - 프로젝션 대상이 root 엔티티면, JPQL SELECT 절 최적화 가능
+      - 프로젝션 대상이 ROOT가 아니면
+        - 최적화가 힘들다
+        - LEFT OUTER JOIN 처리
+        - 모든 필드를 SELECT해서 엔티티로 조회한 다음에 계산
+
+  - 실무에서는 단순할 때만 사용하고, 조금만 복잡해지면 QueryDSL을 사용하자
+
+
+
+- 네이티브 쿼리
+
+  - 가급적 사용하지 않는 것이 좋음
+
+  - 최근에 나온 궁극의 방법 스프링 데이터 -> Projections 활용
+
+  - 반환 타입
+
+    - Object[]
+    - Tuple
+    - DTO(스프링 데이터 인터페이스 Projections 지원)
+
+  - 제약
+
+    - Sort 파라미터를 통한 정렬이 정상 동작하지 않을 수 있음(믿지 말고 직접 처리)
+    - JPQL처럼 애플리케이션 로딩 시점에 문법 확인 불가
+    - 동적 쿼리 불가
+    - 반환 타입이 몇 개 지원안됨
+
+  - JPA 네이티브 SQL 지원
+
+    ```java
+    public interface MemberRepository extends JpaRepository<Member, Long> {
+        
+     @Query(value = "select * from member where username = ?", nativeQuery = true)
+     Member findByNativeQuery(String username);
+    }
+    ```
+
+    - JPQL은 위치 기반 파리미터를 1부터 시작하지만 네이티브 SQL은 0부터 시작
+    - 네이티브 SQL을 DTO로 조회할 때는 JdbcTemplate or myBatis 권장
+
+  - Projections 활용
+
+    - 예) 스프링 데이터 JPA 네이티브 쿼리 + 인터페이스 기반 Projections 활용
+
+    ```java
+    public interface MemberProjections {
+        
+        Long getId();
+        String getUsername();
+        String getTeamName();
+    }
+    ```
+
+    ```java
+    @Query(value = "SELECT m.member_id as id, m.username, t.name as teamName " +
+           "FROM member m left join team t ON m.team_id = t.team_id",
+           countQuery = "SELECT count(*) from member",
+           nativeQuery = true)
+    Page<MemberProjection> findByNativeProjection(Pageable pageable);
+    ```
+
+    - 정적 쿼리는 어느정도 해결 가능
