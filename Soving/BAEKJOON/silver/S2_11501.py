@@ -6,15 +6,11 @@ for _ in range(T):
     N = int(input())
     prices = list(map(int, input().split()))
     answer = 0
-    max_price = max(prices)
-    sells = []
-    for i in range(N):
-        if prices[i] < max_price:
-            sells.append(prices[i])
+    max_num = 0
+    for i in range(N-1, -1, -1):
+        if max_num > prices[i]:
+            answer += max_num - prices[i]
         else:
-            while sells:
-                curr = sells.pop()
-                answer += max_price - curr
-            if i+1 < N:
-                max_price = max(prices[i+1:])
+            max_num = prices[i]
+
     print(answer)
