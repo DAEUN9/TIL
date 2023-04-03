@@ -14,7 +14,7 @@ def dfs(R):
     for i in range(N, 0, -1):
         if lines[R][i] and not visited[i]:
             visited[i] = 1
-            answer += idx*i
+            answer += idx*R
             idx += 1
             dfs(i)
 dfs(R)
