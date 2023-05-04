@@ -1,6 +1,33 @@
-0 0 1 0 0
-0 0 -1 0 0
-0 0 1 0 0
-1 0 -1 1 0
-0 0 0 -1 0
-2 3
+3 4
+twice
+9
+jihyo
+dahyeon
+mina
+momo
+chaeyoung
+jeongyeon
+tzuyu
+sana
+nayeon
+blackpink
+4
+jisu
+lisa
+rose
+jenny
+redvelvet
+5
+wendy
+irene
+seulgi
+yeri
+joy
+sana
+1
+wendy
+1
+twice
+0
+rose
+1
