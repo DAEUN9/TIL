@@ -1,33 +1,16 @@
-3 4
-twice
-9
-jihyo
-dahyeon
-mina
-momo
-chaeyoung
-jeongyeon
-tzuyu
-sana
-nayeon
-blackpink
-4
-jisu
-lisa
-rose
-jenny
-redvelvet
-5
-wendy
-irene
-seulgi
-yeri
-joy
-sana
-1
-wendy
-1
-twice
-0
-rose
-1
+3 2 3
+noodle 10000
+tteokbokki 5000
+sundae 7000
+cutlet 12000
+friedrice 8000
+dumpling
+potatochips
+fishcake
+6
+noodle
+noodle
+cutlet
+friedrice
+cutlet
+potatochips
