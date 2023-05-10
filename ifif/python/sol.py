@@ -1,28 +1,40 @@
 import sys
 sys.stdin = open("input.txt", "r")
-direction = [[-1, 0], [1, 0], [0, -1], [0, 1]]
-board = [list(map(int, input().split())) for _ in range(5)]
-r, c = map(int, input().split())
-answer = 0
-def dfs(x, y, cnt, move):
-    global answer
-    if move > 3:
-        return
-    if cnt >= 2:
-        answer = 1
-        return
-    for a, b in direction:
-        nx = a+x
-        ny = b+y
-        if 0<=nx<5 and 0<=ny<5 and board[nx][ny] > -1:
-            if board[nx][ny] == 1:
-                board[nx][ny] = -1
-                dfs(nx, ny, cnt+1, move+1)
-                board[nx][ny] = 1
-            elif board[nx][ny] == 0:
-                board[nx][ny] = -1
-                dfs(nx, ny, cnt, move+1)
-                board[nx][ny] = 0
-board[r][c] = -1
-dfs(r, c, 0, 0)
+input = sys.stdin.readline
+
+A, B, C = map(int, input().split())
+basics = dict()
+specials = dict()
+services = dict()
+for _ in range(A):
+    name, price = input().split()
+    basics[name] = int(price)
+for _ in range(B):
+    name, price = input().split()
+    specials[name] = int(price)
+for _ in range(C):
+    name = input().strip()
+    services[name] = 1
+
+N = int(input())
+basic_price = 0
+special_price = 0
+service_check = 0
+for _ in range(N):
+    menu = input().strip()
+    if basics.get(menu):
+        basic_price += basics[menu]
+    elif specials.get(menu):
+        special_price += specials[menu]
+    else:
+        service_check += 1
+answer = "Okay"
+if special_price:
+    if basic_price < 20000:
+        answer = "No"
+if service_check:
+    if service_check > 1:
+        answer = "No"
+    if basic_price+special_price < 50000:
+        answer = "No"
 print(answer)
