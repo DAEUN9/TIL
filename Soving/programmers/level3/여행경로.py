@@ -1,25 +1,27 @@
 def solution(tickets):
     tickets.sort()
     lines = dict()
-    answer = ["ICN"]
-    visited = dict()
+    answer = []
     for a, b in tickets:
-        temp = lines.get(a, [])
-        temp2 = visited.get(a, [])
-        lines[a] = temp + [b]
-        visited[a] = temp2 + [0]
-        lines[a].sort()
-        
-        
-    q = ["ICN"]
-    while q:
-        curr = q.pop()
+        temp1 = lines.get(a, [])
+        temp1.append([b, 0])
+        lines[a] = temp1
+
+    def dfs(curr, cnt, temp):
+        if cnt == len(tickets)+1:
+            answer.append(temp)
+            return
         if lines.get(curr, 0) == 0:
-            continue
-        for i in range(len(lines[curr])):
-            if visited[curr][i]:
+            return
+        for l in range(len(lines[curr])):
+            if lines[curr][l][1]:
                 continue
-            visited[curr][i] = 1
-            answer.append(lines[curr][i])
-            q.append(lines[curr][i])
-    return answer
+            lines[curr][l][1] = 1
+            dfs(lines[curr][l][0], cnt + 1, temp + [lines[curr][l][0]])
+            lines[curr][l][1] = 0
+
+    dfs("ICN", 1, ["ICN"])
+    answer.sort()
+    return answer[0]
+
+print(solution([["ICN", "SFO"], ["ICN", "ATL"], ["SFO", "ATL"], ["ATL", "ICN"], ["ATL","SFO"]]))
