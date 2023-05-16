@@ -1,4 +1,2 @@
 3
-number object
-string object
-number string
+1 6 4 3 5 2 7
