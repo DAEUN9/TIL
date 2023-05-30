@@ -1,40 +1,17 @@
 import sys
 sys.stdin = open("input.txt", "r")
-input = sys.stdin.readline
 
-A, B, C = map(int, input().split())
-basics = dict()
-specials = dict()
-services = dict()
-for _ in range(A):
-    name, price = input().split()
-    basics[name] = int(price)
-for _ in range(B):
-    name, price = input().split()
-    specials[name] = int(price)
-for _ in range(C):
-    name = input().strip()
-    services[name] = 1
+R, C, W = map(int, input().split())
+pascal = [[1]]
+for i in range(1, R+W+1):
+    temp = [1]
+    for j in range(1, i):
+        temp.append(pascal[i-1][j-1] + pascal[i-1][j])
+    pascal.append(temp + [1])
 
-N = int(input())
-basic_price = 0
-special_price = 0
-service_check = 0
-for _ in range(N):
-    menu = input().strip()
-    if basics.get(menu):
-        basic_price += basics[menu]
-    elif specials.get(menu):
-        special_price += specials[menu]
-    else:
-        service_check += 1
-answer = "Okay"
-if special_price:
-    if basic_price < 20000:
-        answer = "No"
-if service_check:
-    if service_check > 1:
-        answer = "No"
-    if basic_price+special_price < 50000:
-        answer = "No"
+cnt = 0
+answer = 0
+for i in range(R-1, R+W-1):
+    cnt += 1
+    answer += sum(pascal[i][C-1:C+cnt-1])
 print(answer)
