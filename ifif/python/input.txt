@@ -1,9 +1,3 @@
+2.00
 5
-This can't be solved by brute force.
-1
-Mississippi
-1
-a
-3
-abcc
-0
+2 0 0 0 0
