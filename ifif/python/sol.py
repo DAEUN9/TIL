@@ -1,20 +1,28 @@
 import sys
 sys.stdin = open("input.txt", "r")
 
-def str_to_minutes(t):
-    h = int(t[:2])
-    m = int(t[2:])
-    return h*60 + m
-N = int(input())
-plays = [input().split() for _ in range(N)]
-plays.sort()
-answer = 0
-end = 600
-for s, e in plays:
-    s = str_to_minutes(s)
-    e = str_to_minutes(e)
-    if e + 10 > end:
-        answer = max(answer, s - 10 - end)
-        end = e + 10
-answer = max(22*60 - end, answer)
-print(answer)
+S = list(input())
+one_cnt = 0
+zero_cnt = 0
+for s in S:
+    if s == '0':
+        zero_cnt += 1
+    else:
+        one_cnt += 1
+
+zero_cnt //= 2
+one_cnt //= 2
+idx = 0
+while one_cnt:
+    if S[idx] == "1":
+        S[idx] = ""
+        one_cnt -= 1
+    idx += 1
+
+idx = -1
+while zero_cnt:
+    if S[idx] == "0":
+        S[idx] = ""
+        zero_cnt -= 1
+    idx -= 1
+print("".join(S))
