@@ -1,28 +1,30 @@
 import sys
 sys.stdin = open("input.txt", "r")
 
-S = list(input())
-one_cnt = 0
-zero_cnt = 0
-for s in S:
-    if s == '0':
-        zero_cnt += 1
+while True:
+    numbers = input()
+    if numbers == "0":
+        break
+    n = int(numbers[0])
+    numbers = numbers.split()[1:]
+    numbers.sort()
+    a = []
+    b = []
+    zero_cnt = 0
+    idx = 0
+    for number in numbers:
+        if number == "0":
+            zero_cnt += 1
+            continue
+        if idx%2 == 0:
+            a.append(number)
+        else:
+            b.append(number)
+        idx += 1
+    if len(a) == len(b):
+        a = a[:1] + ["0"]*(zero_cnt//2 + zero_cnt%2) + a[1:]
+        b = b[:1] + ["0"]*(zero_cnt//2) + b[1:]
     else:
-        one_cnt += 1
-
-zero_cnt //= 2
-one_cnt //= 2
-idx = 0
-while one_cnt:
-    if S[idx] == "1":
-        S[idx] = ""
-        one_cnt -= 1
-    idx += 1
-
-idx = -1
-while zero_cnt:
-    if S[idx] == "0":
-        S[idx] = ""
-        zero_cnt -= 1
-    idx -= 1
-print("".join(S))
+        a = a[:1] + ["0"]*(zero_cnt//2) + a[1:]
+        b = b[:1] + ["0"]*(zero_cnt//2 + zero_cnt%2) + b[1:]
+    print(int("".join(a)) + int("".join(b)))
