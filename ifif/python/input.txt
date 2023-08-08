@@ -1,4 +1,4 @@
-1
-acab
-1
-aacb
+1 2
+ab
+ab
+cd
